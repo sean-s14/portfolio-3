@@ -9,11 +9,8 @@ import ContactPage from "./site/contactPage";
 
 // Auth
 import LoginPage from "./auth/Login";
-import SignupPage from "./auth/Signup";
-import VerificationPage from "./auth/Verification";
 import SettingsPage from "./auth/Settings";
 import PasswordChangePage from "./auth/PasswordChange";
-import PasswordResetPage from "./auth/PasswordReset";
 
 export {
     HomePage,
@@ -27,9 +24,6 @@ export {
 
     // Auth
     LoginPage,
-    SignupPage,
-    VerificationPage,
     SettingsPage,
     PasswordChangePage,
-    PasswordResetPage,
 }

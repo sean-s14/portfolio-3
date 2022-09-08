@@ -11,3 +11,36 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+
+
+
+.project-img:hover ~ .project-img-cover {
+  opacity: 1;
+}
+
+.project-img-cover {
+  transition: opacity 0.35s;
+}
+.project-img-cover:hover {
+  opacity: 1 !important;
+}
+
+/* #project-img-cover:hover {
+  opacity: 1 !important;
+} */

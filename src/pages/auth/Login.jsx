@@ -1,10 +1,9 @@
 
 import { useState } from 'react';
 import { useTheme } from '@mui/material/styles';
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { 
     Box,
-    Divider,
     Stack,
     Button,
     TextField,
@@ -155,15 +154,7 @@ const LoginPage = (props) => {
                 <Button variant="contained" onClick={ logIn }>
                     Login
                 </Button>
-
-                <Divider />
                 
-                <Button variant="contained">
-                    <Link to="/signup">Don't have an account?</Link>
-                </Button>
-                <Button variant="contained">
-                    <Link to="/password-reset">Forgot Your Password?</Link>
-                </Button>
             </Stack>
         </PageContainer>
     )

@@ -84,6 +84,7 @@ const ContactPage = (props) => {
             <h1>Contact Me</h1>
             
             <Stack 
+                component={"form"}
                 spacing={2} 
                 direction="column"
                 sx={{

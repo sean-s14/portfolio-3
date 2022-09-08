@@ -45,7 +45,6 @@ import {
     // Auth
     Login,
     Logout,
-    PersonAdd,
     Settings,
     
     // Socials
@@ -218,26 +217,27 @@ export default function NavigationDrawer2(props) {
 
     auth?.tokens?.access 
         ? routes2.push({
-            name: "Settings",
-            path: "settings",
-            icon: <Settings />,
+                name: "Settings",
+                path: "settings",
+                icon: <Settings />,
             },
             {
-            name: "Logout",
-            path: "logout",
-            icon: <Logout />,
-            func: () => authUpdate("clear")
+                name: "Logout",
+                path: "logout",
+                icon: <Logout />,
+                func: () => authUpdate("clear")
             })
         : routes2.push({
-            name: "Login",
-            path: "login",
-            icon: <Login />
+                name: "Admin Login",
+                path: "login",
+                icon: <Login />
             },
-            {
-            name: "Signup",
-            path: "signup",
-            icon: <PersonAdd />
-            })
+            // {
+            //     name: "Signup",
+            //     path: "signup",
+            //     icon: <PersonAdd />
+            // }
+        )
 
     const routes3 = [
         {
@@ -337,11 +337,11 @@ export default function NavigationDrawer2(props) {
 
                 <Divider />
 
-                <DrawerList routes={routes2} open={open} linkStyle={linkStyle} />
+                <DrawerList routes={routes3} open={open} linkStyle={linkStyle} />
 
                 <Divider />
 
-                <DrawerList routes={routes3} open={open} linkStyle={linkStyle} />
+                <DrawerList routes={routes2} open={open} linkStyle={linkStyle} />
 
 
                 { open &&

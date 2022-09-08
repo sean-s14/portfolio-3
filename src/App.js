@@ -13,11 +13,8 @@ import {
 
   // Auth
   LoginPage,
-  SignupPage,
-  VerificationPage,
   SettingsPage,
   PasswordChangePage,
-  PasswordResetPage,
 } from 'pages/exports';
 import NavigationDrawer from 'layout/navigationDrawer';
 import { useAuth } from 'contexts/exports';
@@ -30,6 +27,10 @@ export default function App() {
   const auth = useAuth();
   const [loggedIn, setLoggedIn] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  // useEffect( () => {
+  //   (loading === false) && (loggedIn !== null) && return 0  
+  // }, [loading])
 
   useEffect( () => {
     console.log("Auth:", auth);
@@ -56,9 +57,6 @@ export default function App() {
         { !loggedIn
           ? <>
               <Route path="login" element={<LoginPage />}/>
-              <Route path="signup" element={<SignupPage />}/>
-              <Route path="verify" element={<VerificationPage />}/>
-              <Route path="password-reset" element={<PasswordResetPage />}/>
             </>
           :
             <>

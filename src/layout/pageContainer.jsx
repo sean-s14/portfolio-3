@@ -1,7 +1,7 @@
-
 import { Box, useMediaQuery } from '@mui/material';
 import { useVariables } from 'hooks/exports';
 // import { useEffect } from 'react';
+
 
 const PageContainer = ({children, style}) => {
 
