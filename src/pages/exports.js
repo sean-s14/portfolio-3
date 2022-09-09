@@ -1,6 +1,7 @@
 import { HomePage } from "./homePage";
 import { ProjectsPage } from "./other/projectsPage";
-import { ArticlesPage } from "./other/articlesPage";
+import ArticlesPage from "./other/articlesPage";
+import ArticleDetailPage from "./other/articleDetailPage";
 
 // Site
 import AboutPage from "./site/aboutPage";
@@ -16,6 +17,7 @@ export {
     HomePage,
     ProjectsPage,
     ArticlesPage,
+    ArticleDetailPage,
 
     // Site
     AboutPage,

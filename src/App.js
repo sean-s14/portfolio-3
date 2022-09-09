@@ -5,6 +5,7 @@ import {
   HomePage,
   ProjectsPage,
   ArticlesPage,
+  ArticleDetailPage,
 
   // Site
   AboutPage,
@@ -49,7 +50,11 @@ export default function App() {
       <Routes>
         <Route path="/" element={<HomePage />}/>
         <Route path="projects" element={<ProjectsPage />}/>
-        <Route path="articles" element={<ArticlesPage />}/>
+        {/* <Route path="articles" element={<ArticlesPage />}/> */}
+        <Route path="articles">
+          <Route path="" element={<ArticlesPage />}/>
+          <Route path=":slug" element={<ArticleDetailPage />}/>
+        </Route>
         <Route path="about" element={<AboutPage />}/>
         <Route path="policies" element={<PoliciesPage />}/>
         <Route path="contact" element={<ContactPage />}/>
