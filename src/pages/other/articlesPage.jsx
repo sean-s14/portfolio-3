@@ -6,6 +6,8 @@ import Grid from '@mui/material/Unstable_Grid2';
 
 import { PageContainer } from "layout/pageContainer";
 import { useAxios } from 'hooks/exports';
+import { convertDate } from 'utils/exports';
+import { LoadingScreen } from 'pages/exports';
 
 
 const ArticlesPage = (props) => {
@@ -36,6 +38,9 @@ const ArticlesPage = (props) => {
     useEffect( () => {  
         console.log("Articles:", articles)
     }, [articles]);
+
+    if (articles.length === 0) return <LoadingScreen />
+    // if (!articles) return <div className={"loader"}></div>;
 
     return (
         <PageContainer
@@ -112,7 +117,7 @@ const ArticlesPage = (props) => {
                             }}
                         >
                             <h2>{title}</h2>
-                            <div>{date_created}</div>
+                            <div>{convertDate(date_created)}</div>
                         </Link>
                     </Grid>
                 )) }

@@ -11,6 +11,8 @@ import { Box, Divider } from '@mui/material';
 
 import { PageContainer } from "layout/pageContainer";
 import { useAxios } from 'hooks/exports';
+import { convertDate } from 'utils/exports';
+import { LoadingScreen } from 'pages/exports';
 
 
 const ArticleDetailPage = (props) => {
@@ -19,35 +21,14 @@ const ArticleDetailPage = (props) => {
     const api = useAxios();
     let { slug } = useParams();
 
-    const [article, setArticle] = useState([]);
+    const [article, setArticle] = useState({});
     const [errors, setErrors] = useState({});
 
     const getArticle = () => {
         api.get(`articles/${slug}`)
             .then( res => {
                 console.log("Res?.data:", res?.data);
-                // console.log("Text:", res?.data[0].text.match(/(```py)(\n.*)*(```)/g));
-                const d = new Date(res?.data?.date_created)
-
-                const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-                const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-
-                let day = d.getDay();
-                let date = String(d.getDate());
-                let month = d.getMonth();
-                let year = d.getFullYear();
-                let num = {
-                    1: 'st',   2: 'nd',  3: 'rd',  4: 'th',
-                    5: 'th',   6: 'th',  7: 'th',  8: 'th',
-                    9: 'th',  10: 'th', 11: 'th', 12: 'th',
-                    13: 'th', 14: 'th', 15: 'th', 16: 'th',
-                    17: 'th', 18: 'th', 19: 'th', 20: 'th',
-                    21: 'st', 22: 'nd', 23: 'rd', 24: 'th',
-                    25: 'th', 26: 'th', 27: 'th', 28: 'th',
-                    29: 'th', 30: 'th', 31: 'st',
-                };
-
-                let data = {...res?.data, date_created: `${days[day]} ${date}${num[date]}, ${months[month]} ${year}`}
+                let data = {...res?.data, date_created: convertDate(res?.data?.date_created)}
                 setArticle(data);
             })
             .catch( err => {
@@ -64,6 +45,8 @@ const ArticleDetailPage = (props) => {
         console.log("Article:", article)
     }, [article]);
 
+    if (Object.keys(article).length === 0) return <LoadingScreen />
+
     return (
         <PageContainer style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
             { !article && errors && errors.map( (val, index) => (
@@ -79,10 +62,6 @@ const ArticleDetailPage = (props) => {
                     components={{
                         code({node, inline, className, children, ...props}) {
                             const match = /language-(\w+)/.exec(className || '')
-                            console.log("Match:", match);
-                            // console.log("Node:", node);
-                            console.log("Class Name:", className);
-                            // console.log("Is Inline:", inline);
                             return <SyntaxHighlighter
                                         children={String(children)}
                                         language={ (match && match[1]) || 'js' }

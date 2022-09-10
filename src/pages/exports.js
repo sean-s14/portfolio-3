@@ -13,6 +13,8 @@ import LoginPage from "./auth/Login";
 import SettingsPage from "./auth/Settings";
 import PasswordChangePage from "./auth/PasswordChange";
 
+import LoadingScreen from "./loadingScreen";
+
 export {
     HomePage,
     ProjectsPage,
@@ -28,4 +30,6 @@ export {
     LoginPage,
     SettingsPage,
     PasswordChangePage,
+
+    LoadingScreen,
 }
