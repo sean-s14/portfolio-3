@@ -1,6 +1,6 @@
 
 import { useState, useEffect, useRef } from 'react';
-import { useTheme } from '@mui/material/styles';
+// import { useTheme } from '@mui/material/styles';
 import { Box, Button } from '@mui/material';
 import { useParams } from "react-router-dom";
 import { Editor } from '@tinymce/tinymce-react';
@@ -14,7 +14,7 @@ const ArticleUpdatePage = (props) => {
     const [dirty, setDirty] = useState(false);
     useEffect(() => setDirty(false), []);
 
-    const theme = useTheme();
+    // const theme = useTheme();
     const api = useAxios();
     let { slug } = useParams();
 
@@ -63,6 +63,10 @@ const ArticleUpdatePage = (props) => {
             }}
         >
             <Box sx={{width: '90%', pt: 5}}>
+                { !article && errors && errors.map( (val, index) => (
+                    <div>{val}</div>
+                )) }
+                
                 <Editor
                     apiKey='xml55fdjmkrdq1yhz0j07so76ypn9oxz2juz6hwniq0geahd'
                     init={{
@@ -82,12 +86,15 @@ const ArticleUpdatePage = (props) => {
                     onDirty={() => setDirty(true)}
                 />
 
+                {dirty && <p>You have unsaved content!</p>}
+
                 <Button 
                     variant="contained" 
                     onClick={ update }
+                    disabled={!dirty}
                     sx={{
                         width: '100%',
-                        mt: 3,
+                        mt: 1,
                         fontWeight: 900,
                     }}
                 >

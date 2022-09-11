@@ -1,7 +1,14 @@
 
 import { useState, useEffect } from 'react';
 import { useTheme } from '@mui/material/styles';
-import { IconButton, Box } from '@mui/material';
+import { 
+    IconButton, 
+    Box, 
+    Button,
+    Dialog,
+    DialogActions,
+    DialogTitle,
+} from '@mui/material';
 import { Edit, Delete } from '@mui/icons-material';
 import { Link } from "react-router-dom";
 import Grid from '@mui/material/Unstable_Grid2';
@@ -38,6 +45,12 @@ const ArticlesPage = (props) => {
     const [articles, setArticles] = useState([]);
     const [errors, setErrors] = useState({});
 
+    const [delOpen, setDelOpen] = useState(false);
+    const [article, setArticle] = useState({});
+
+    const handleDelOpen = () => setDelOpen(true);
+    const handleDelClose = () => setDelOpen(false);
+
     const getArticles = () => {
         api.get("articles/")
             .then( res => {
@@ -50,6 +63,19 @@ const ArticlesPage = (props) => {
                 if (!err?.response?.status) return 
                 setErrors( e => ({...e, ...err?.response?.data}) );
             });
+    }
+
+    const deleteArticle = () => {
+        api.delete(`articles/delete/${article.slug}/`)
+            .then( res => {
+                getArticles();
+            })
+            .catch( err => {
+                if (!err?.response?.data) return;
+                if (!err?.response?.status) return 
+                setErrors( e => ({...e, ...err?.response?.data}) );
+            });
+        handleDelClose()
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -136,33 +162,53 @@ const ArticlesPage = (props) => {
                                 width: 'inherit',
                             }}
                         >
-                            { !!auth?.tokens?.access &&
-                                <Box 
-                                    sx={{
-                                        display: 'flex',
-                                        position: 'absolute',
-                                        right: '10px',
-                                        top: '10px',
-                                    }}
-                                >
-                                    <IconButton sx={IconButtonStyle}>
-                                        <Link to={`/articles/edit/${slug}`} style={LinkStyle}>
-                                            <Edit sx={{color: theme.palette.success.main}} />
-                                        </Link>
-                                    </IconButton>
-                                    <IconButton sx={IconButtonStyle}>
-                                        <Link to={slug} style={LinkStyle}>
-                                            <Delete sx={{color: theme.palette.error.main}} />
-                                        </Link>
-                                    </IconButton>
-                                </Box>
-                            }
                             <h2>{title}</h2>
                             <div>{convertDate(date_created)}</div>
                         </Link>
+                        { !!auth?.tokens?.access &&
+                            <Box 
+                                sx={{
+                                    display: 'flex',
+                                    position: 'absolute',
+                                    right: '10px',
+                                    bottom: '10px',
+                                }}
+                            >
+                                <IconButton sx={IconButtonStyle}>
+                                    <Link to={`/articles/edit/${slug}`} style={LinkStyle}>
+                                        <Edit sx={{color: theme.palette.primary.main}} />
+                                    </Link>
+                                </IconButton>
+                                <IconButton 
+                                    onClick={ () => {
+                                        handleDelOpen();
+                                        setArticle({title: title, slug: slug});
+                                    }}
+                                    sx={IconButtonStyle}
+                                >
+                                    <Delete sx={{color: theme.palette.error.main}} />
+                                </IconButton>
+                            </Box>
+                        }
                     </Grid>
                 )) }
             </Grid>
+            <Dialog
+                open={delOpen}
+                onClose={handleDelClose}
+                aria-labelledby="article-delete-dialog-title"
+                aria-describedby="article-delete-dialog-description"
+            >
+                <DialogTitle id="article-delete-dialog-title">
+                    {`Delete article titled "${article.title}"?`}
+                </DialogTitle>
+                <DialogActions sx={{justifyContent: 'center'}}>
+                    <Button onClick={deleteArticle}>Delete</Button>
+                    <Button onClick={handleDelClose} autoFocus>
+                        Cancel
+                    </Button>
+                </DialogActions>
+            </Dialog>
         </PageContainer>
     )
 }
