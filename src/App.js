@@ -6,6 +6,7 @@ import {
   ProjectsPage,
   ArticlesPage,
   ArticleDetailPage,
+  ArticleUpdatePage,
 
   // Site
   AboutPage,
@@ -53,6 +54,7 @@ export default function App() {
         {/* <Route path="articles" element={<ArticlesPage />}/> */}
         <Route path="articles">
           <Route path="" element={<ArticlesPage />}/>
+          <Route path="edit/:slug" element={<ArticleUpdatePage />}/>
           <Route path=":slug" element={<ArticleDetailPage />}/>
         </Route>
         <Route path="about" element={<AboutPage />}/>

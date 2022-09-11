@@ -9,10 +9,7 @@ import { useAuthUpdate } from 'contexts/exports';
 
 const NewPageTemplate = (props) => {
 
-    // Theme
     const theme = useTheme();
-
-    // Auth
     const updateAuthData = useAuthUpdate();
     const api = useAxios();
 

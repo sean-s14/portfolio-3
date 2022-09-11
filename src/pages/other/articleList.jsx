@@ -1,29 +1,49 @@
 
 import { useState, useEffect } from 'react';
 import { useTheme } from '@mui/material/styles';
+import { IconButton, Box } from '@mui/material';
+import { Edit, Delete } from '@mui/icons-material';
+import { Link } from "react-router-dom";
 import Grid from '@mui/material/Unstable_Grid2';
-// import {
-//     Paper,
-// } from '@mui/material'
-
 
 import { PageContainer } from "layout/pageContainer";
 import { useAxios } from 'hooks/exports';
+import { convertDate } from 'utils/exports';
+import { LoadingScreen } from 'pages/exports';
+import { useAuth } from 'contexts/exports';
 
+const IconButtonStyle = {
+    width: '2.5rem',
+    height: '2.5rem',
+    mr: '.3rem',
+    borderRadius: '5px',
+    padding: 0,
+    '&:hover': {bgcolor: 'rgba(0,0,0,0.8)'}
+}
 
-const ProjectsPage = (props) => {
+const LinkStyle = {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
+    height: '100%',
+}
+
+const ArticlesPage = (props) => {
 
     const theme = useTheme();
     const api = useAxios();
+    const auth = useAuth();
 
-    const [projects, setProjects] = useState([]);
+    const [articles, setArticles] = useState([]);
     const [errors, setErrors] = useState({});
 
-    const getProjects = () => {
-        api.get("projects/")
+    const getArticles = () => {
+        api.get("articles/")
             .then( res => {
                 console.log("Res?.data:", res?.data);
-                setProjects(res?.data);
+                setArticles(res?.data);
+                // console.log("Text:", res?.data[0].text.match(/(```py)(\n.*)*(```)/g));
             })
             .catch( err => {
                 if (!err?.response?.data) return;
@@ -33,11 +53,14 @@ const ProjectsPage = (props) => {
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    useEffect( () =>  getProjects(), []);
+    useEffect( () =>  getArticles(), []);
     
     useEffect( () => {  
-        console.log("Projects:", projects)
-    }, [projects]);
+        console.log("Articles:", articles)
+    }, [articles]);
+
+    if (articles.length === 0) return <LoadingScreen />
+    // if (!articles) return <div className={"loader"}></div>;
 
     return (
         <PageContainer
@@ -50,20 +73,19 @@ const ProjectsPage = (props) => {
                 justifyContent: 'center'
             }}
         >
-            <h1 style={{width: '100%', textAlign: 'center'}}>Projects</h1>
+
+            <h1>Articles</h1>
 
             <Grid 
                 container 
                 spacing={2}
-                sx={{
-                    justifyContent: 'inherit'
-                }}
+                sx={{ justifyContent: 'inherit' }}
                 wrap='wrap'
             >
-                { !projects && errors && errors.map( (val, index) => (
+                { !articles && errors && errors.map( (val, index) => (
                     <div>{val}</div>
                 )) }
-                { projects && projects.map( ({id, title, link, imageURI, description, date_created}, index) => (
+                { articles && articles.map( ({slug, title, imageURI, date_created}, index) => (
                     <Grid item xs={6} key={index} 
                         sx={{
                             width: 'auto', 
@@ -74,8 +96,7 @@ const ProjectsPage = (props) => {
                             marginRight: '1rem',
                             marginBottom: '2rem',
                             display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
+                            flexDirection: 'column',
                             height: 'auto',
                         }}
                     >
@@ -83,23 +104,18 @@ const ProjectsPage = (props) => {
                             alt={title}
                             src={imageURI}
                             style={{
-                                // height: '250px',
-                                // display: 'flex',
                                 height: 'auto',
                                 maxHeight: '250px',
                                 maxWidth: '90vw',
                                 borderRadius: '.8rem',
                                 border: '3px solid #333',
-                                // border: '3px solid ' + theme.palette.primary.main,
                                 boxSizing: 'border-box'
                             }}
                             className={"project-img"}
                             loading="lazy"
                         />
-                        <a 
-                            href={link} 
-                            target={"_blank"}
-                            rel={"noreferrer"}
+                        <Link
+                            to={slug} 
                             className={"project-img-cover"}
                             style={{
                                 borderRadius: '.8rem',
@@ -108,7 +124,6 @@ const ProjectsPage = (props) => {
                                 display: 'flex',
                                 flexDirection: 'column',
                                 alignItems: 'center',
-                                // justifyContent: 'center',
                                 top: 0,
                                 left: 0,
                                 right: 0,
@@ -116,17 +131,35 @@ const ProjectsPage = (props) => {
                                 textDecoration: 'none',
                                 color: theme.palette.common.white,
                                 position: 'absolute',
-                                // height: '256px',
                                 height: 'auto',
                                 maxHeight: '250px',
                                 width: 'inherit',
-                                // border: '3px solid ' + theme.palette.primary.main,
-                                // boxSizing: 'border-box'
                             }}
                         >
-                            <h2 sx={{}}>{title}</h2>
-                            <div>{description}</div>
-                        </a>
+                            { !!auth?.tokens?.access &&
+                                <Box 
+                                    sx={{
+                                        display: 'flex',
+                                        position: 'absolute',
+                                        right: '10px',
+                                        top: '10px',
+                                    }}
+                                >
+                                    <IconButton sx={IconButtonStyle}>
+                                        <Link to={`/articles/edit/${slug}`} style={LinkStyle}>
+                                            <Edit sx={{color: theme.palette.success.main}} />
+                                        </Link>
+                                    </IconButton>
+                                    <IconButton sx={IconButtonStyle}>
+                                        <Link to={slug} style={LinkStyle}>
+                                            <Delete sx={{color: theme.palette.error.main}} />
+                                        </Link>
+                                    </IconButton>
+                                </Box>
+                            }
+                            <h2>{title}</h2>
+                            <div>{convertDate(date_created)}</div>
+                        </Link>
                     </Grid>
                 )) }
             </Grid>
@@ -134,4 +167,4 @@ const ProjectsPage = (props) => {
     )
 }
 
-export { ProjectsPage };
+export default ArticlesPage;

@@ -67,19 +67,7 @@ const LoginPage = (props) => {
                 if (!err?.response?.data) return;
                 if (!err?.response?.status) return 
                 setErrors( e => ({...e, ...err?.response?.data}) );
-
-                if (err?.response?.status === 423) {
-                    navigate(
-                        "/verify", 
-                        { 
-                            replace: true, 
-                            state: { 
-                                email: form.email,
-                                username: form.username,
-                                password: data.password,
-                            } 
-                        });
-                }
+                if (err?.response?.status === 423) {}
             });
     };
 
