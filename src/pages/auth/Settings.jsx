@@ -131,7 +131,7 @@ const SettingsPage = (props) => {
                 <Badge
                     overlap="circular"
                     anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-                    sx={{width: 'auto'}}
+                    // sx={{alignItems: 'center'}}
                     badgeContent={
                         <IconButton>
                             <InputLabel 

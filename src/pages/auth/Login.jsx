@@ -16,10 +16,7 @@ import { useAuthUpdate } from 'contexts/exports';
 
 const LoginPage = (props) => {
 
-    // Theme
     const theme = useTheme();
-
-    // Auth
     const updateAuthData = useAuthUpdate();
     const api = useAxios();
 

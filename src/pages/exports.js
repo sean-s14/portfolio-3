@@ -1,5 +1,6 @@
 import HomePage from "./homePage";
 import ProjectsPage from "./other/projectList";
+import ProjectsUpdatePage from "./other/projectUpdate";
 import ArticlesPage from "./other/articleList";
 import ArticleDetailPage from "./other/articleDetail";
 import ArticleUpdatePage from "./other/articleUpdate";
@@ -19,6 +20,7 @@ import LoadingScreen from "./loadingScreen";
 export {
     HomePage,
     ProjectsPage,
+    ProjectsUpdatePage,
     ArticlesPage,
     ArticleDetailPage,
     ArticleUpdatePage,

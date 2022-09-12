@@ -4,6 +4,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import {
   HomePage,
   ProjectsPage,
+  ProjectsUpdatePage,
   ArticlesPage,
   ArticleDetailPage,
   ArticleUpdatePage,
@@ -35,8 +36,8 @@ export default function App() {
   // }, [loading])
 
   useEffect( () => {
-    console.log("Auth:", auth);
-    console.log("Logged In:", !!auth?.tokens?.access);
+    // console.log("Auth:", auth);
+    // console.log("Logged In:", !!auth?.tokens?.access);
     setLoggedIn(!!auth?.tokens?.access);
   }, [auth])
 
@@ -50,13 +51,21 @@ export default function App() {
       <NavigationDrawer />
       <Routes>
         <Route path="/" element={<HomePage />}/>
-        <Route path="projects" element={<ProjectsPage />}/>
-        {/* <Route path="articles" element={<ArticlesPage />}/> */}
+
+        <Route path="projects">
+          <Route path="" element={<ProjectsPage />}/>
+          <Route path="edit/:slug" element={<ProjectsUpdatePage />}/>
+          {/* <Route path=":slug" element={<ProjectDetailPage />}/> */}
+          {/* <Route path="create" element={<ProjectCreatePage />}/> */}
+        </Route>
+        
         <Route path="articles">
           <Route path="" element={<ArticlesPage />}/>
           <Route path="edit/:slug" element={<ArticleUpdatePage />}/>
           <Route path=":slug" element={<ArticleDetailPage />}/>
+          {/* <Route path="create" element={<ArticleCreatePage />}/> */}
         </Route>
+
         <Route path="about" element={<AboutPage />}/>
         <Route path="policies" element={<PoliciesPage />}/>
         <Route path="contact" element={<ContactPage />}/>
