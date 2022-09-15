@@ -136,7 +136,11 @@ const LoginPage = (props) => {
                     type={"password"}
                     required={true}
                 />
-                <Button variant="contained" onClick={ logIn }>
+                <Button 
+                    variant="contained" 
+                    onClick={ logIn }
+                    disabled={Object.keys(form).length < 2}
+                >
                     Login
                 </Button>
                 

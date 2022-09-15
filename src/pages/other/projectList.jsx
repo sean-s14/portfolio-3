@@ -38,7 +38,6 @@ const ProjectsPage = (props) => {
     const getProjects = () => {
         api.get("projects/")
             .then( res => {
-                // console.log("Res?.data:", res?.data);
                 setProjects(res?.data);
             })
             .catch( err => {

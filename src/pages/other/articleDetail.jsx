@@ -58,7 +58,7 @@ const ArticleDetailPage = (props) => {
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    useEffect( () =>  getArticle(), []);
+    useEffect( () => getArticle(), []);
     
     // useEffect( () => {  
     //     console.log("Article:", article)

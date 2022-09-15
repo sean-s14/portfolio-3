@@ -39,9 +39,7 @@ const ArticlesPage = (props) => {
     const getArticles = () => {
         api.get("articles/")
             .then( res => {
-                console.log("Res?.data:", res?.data);
                 setArticles(res?.data);
-                // console.log("Text:", res?.data[0].text.match(/(```py)(\n.*)*(```)/g));
             })
             .catch( err => {
                 if (!err?.response?.data) return;
@@ -64,11 +62,11 @@ const ArticlesPage = (props) => {
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    useEffect( () =>  getArticles(), []);
+    useEffect( () => getArticles(), []);
     
-    useEffect( () => {  
-        console.log("Articles:", articles)
-    }, [articles]);
+    // useEffect( () => {  
+    //     console.log("Articles:", articles)
+    // }, [articles]);
 
     if (articles.length === 0) return <LoadingScreen />
     // if (!articles) return <div className={"loader"}></div>;
@@ -97,6 +95,7 @@ const ArticlesPage = (props) => {
                         />
                         <Link
                             to={slug} 
+                            state={articles[index]}
                             className={"project-img-cover"}
                             style={styles.ArticleLink}
                         >
@@ -113,7 +112,11 @@ const ArticlesPage = (props) => {
                                 }}
                             >
                                 <IconButton sx={styles.IconButtonStyle}>
-                                    <Link to={`/articles/edit/${slug}`} style={styles.LinkStyle}>
+                                    <Link 
+                                        to={`/articles/edit/${slug}`}
+                                        style={styles.LinkStyle}
+                                        state={{title: title}}
+                                    >
                                         <Edit sx={{color: theme.palette.primary.main}} />
                                     </Link>
                                 </IconButton>

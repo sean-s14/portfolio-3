@@ -215,6 +215,7 @@ const SettingsPage = (props) => {
                 <Button 
                     variant="contained"
                     onClick={ saveChanges }
+                    disabled={Object.keys(userInfo).length === 0}
                 >
                     Save Changes
                 </Button>

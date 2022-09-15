@@ -149,8 +149,8 @@ const ContactPage = (props) => {
                 />
                 <Button 
                     variant="contained" 
-                    sx={{}}
                     onClick={ sendMsg }
+                    disabled={Object.keys(form).length === 0}
                 >
                     Send
                 </Button>

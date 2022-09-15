@@ -48,6 +48,7 @@ const ProjectUpdatePage = (props) => {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect( () =>  getProject(), []);
+    useEffect( () =>  console.log("Project:", project), [project]);
 
 
     const update = () => {
@@ -82,7 +83,8 @@ const ProjectUpdatePage = (props) => {
 
         let res = '';
         getBase64(file, (result) => {
-            setProject( (u) => ({...u, imageURI: result}) )
+            // setProject( (u) => ({...u, imageURI: result}) )
+            setForm( (u) => ({...u, imageURI: result}) )
         })
         console.log(res);
     };

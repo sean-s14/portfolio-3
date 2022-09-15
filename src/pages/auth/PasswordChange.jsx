@@ -176,6 +176,7 @@ const PasswordChangePage = (props) => {
                     variant="contained" 
                     sx={{}}
                     onClick={ saveChanges }
+                    disabled={Object.keys(form).length < 3}
                 >
                     Update Password
                 </Button>
