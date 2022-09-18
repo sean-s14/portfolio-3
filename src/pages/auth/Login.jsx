@@ -17,6 +17,7 @@ import { useAuthUpdate } from 'contexts/exports';
 const LoginPage = (props) => {
 
     const theme = useTheme();
+	const styles = stylesheet(theme);
     const updateAuthData = useAuthUpdate();
     const api = useAxios();
 
@@ -69,37 +70,13 @@ const LoginPage = (props) => {
     };
 
     return (
-        <PageContainer
-            style={{
-                maxWidth: '100vw',
-                height: '100%',
-                maxHeight: '100vh',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-            }}
-        >
-            <h1>Login</h1>
+        <PageContainer style={styles.PageContainer}>
+            <h1>Admin Login</h1>
+            
             <Stack 
                 spacing={2} 
                 direction="column"
-                sx={{
-                    width: '18rem',
-                    '& > button, & > div': {
-                        width: '100%',
-                        color: theme.palette.mode === 'dark' && theme.palette.primary.light,
-                        fontSize: '1rem',
-                        '& > input': {
-                            fontSize: '1.3rem',
-                        },
-                        '& > a': {
-                            color: 'inherit',
-                            fontSize: 'inherit',
-                            textDecoration: 'none',
-                        },
-                    },
-                }}
+                sx={styles.StackStyle}
             >
                 {   
                     Object.keys(errors).filter( (key) => 
@@ -148,5 +125,29 @@ const LoginPage = (props) => {
         </PageContainer>
     )
 }
+
+const stylesheet = (theme) => ({
+    PageContainer: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+    },
+    StackStyle: {
+        width: '18rem',
+        '& > button, & > div': {
+            width: '100%',
+            color: theme.palette.mode === 'dark' && theme.palette.primary.light,
+            fontSize: '1rem',
+            '& > input': {
+                fontSize: '1.3rem',
+            },
+            '& > a': {
+                color: 'inherit',
+                fontSize: 'inherit',
+                textDecoration: 'none',
+            },
+        },
+    },
+})
 
 export default LoginPage;

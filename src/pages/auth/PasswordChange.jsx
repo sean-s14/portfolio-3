@@ -17,6 +17,7 @@ const PasswordChangePage = (props) => {
 
     // Theme
     const theme = useTheme();
+	const styles = stylesheet(theme);
 
     // Auth
     // const updateAuthData = useAuthUpdate();
@@ -92,25 +93,13 @@ const PasswordChangePage = (props) => {
     };
 
     return (
-        <PageContainer
-            style={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-            }}
-        >
+        <PageContainer style={styles.PageContainer}>
             <h1>Change Password</h1>
 
             <Stack 
                 spacing={2} 
                 direction="column"
-                sx={{
-                    width: '18rem',
-                    '& > *': {
-                        color: theme.palette.mode === 'dark' && theme.palette.primary.light,
-                        fontSize: '1rem',
-                    },
-                }}
+                sx={styles.StackStyle}
             >
                 { Object.keys(successMessages).length > 0 && 
                     <Box
@@ -184,5 +173,20 @@ const PasswordChangePage = (props) => {
         </PageContainer>
     )
 }
+
+const stylesheet = (theme) => ({
+    PageContainer: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+    },
+    StackStyle: {
+        width: '18rem',
+        '& > *': {
+            color: theme.palette.mode === 'dark' && theme.palette.primary.light,
+            fontSize: '1rem',
+        },
+    },
+})
 
 export default PasswordChangePage;

@@ -37,6 +37,7 @@ function transform(node, children) {
 const ArticleDetailPage = (props) => {
 
     const theme = useTheme();
+	const styles = stylesheet(theme);
     const api = useAxios();
     let { slug } = useParams();
 
@@ -67,11 +68,13 @@ const ArticleDetailPage = (props) => {
     if (Object.keys(article).length === 0) return <LoadingScreen />
 
     return (
-        <PageContainer style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+        <PageContainer style={styles.PageContainer}>
+
             { !article && errors && errors.map( (val, index) => (
                 <div>{val}</div>
             )) }
-            <Box elevation={4} sx={{p: 2, width: '500px', maxWidth: '95%'}}>
+
+            <Box elevation={4} sx={{p: 2, width: '600px', maxWidth: '95%'}}>
                 <h1 style={{marginBottom: 0}}>{article && article.title}</h1>
                 <div style={{fontSize: '0.85rem', color: theme.palette.text.disabled}}>
                     {article && article.date_created}
@@ -84,8 +87,31 @@ const ArticleDetailPage = (props) => {
                 />
             
             </Box>
+
         </PageContainer>
     )
 }
+
+const stylesheet = (theme) => ({
+    PageContainer: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+    },
+    ProjectLink: {
+        borderRadius: '.4rem',
+        padding: '.3rem',
+        backgroundColor: 'rgba(0,0,0,0.3)',
+        display: 'inline-block',
+        textDecoration: 'none',
+        color: theme.palette.common.white,
+    },
+    StackStyle: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        maxWidth: '600px',
+    }
+})
 
 export default ArticleDetailPage;

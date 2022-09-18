@@ -133,15 +133,11 @@ const AboutPage = (props) => {
     // useEffect( () => console.log("Logos:", logos), [logos]);
 
     return (
-        <PageContainer sx={styles.PageContainer}>
+        <PageContainer style={styles.PageContainer}>
             
             <Stack 
                 spacing={3}
-                sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                }}
+                sx={styles.StackStyle}
             >
                 { errors && Object.entries(errors).map( ({key, val}, index) => (
                     <div>{val}</div>
@@ -259,12 +255,12 @@ const AboutPage = (props) => {
 
 const stylesheet = (theme) => ({
     PageContainer: {
-        padding: '1rem',
-        px: '3rem',
+        // padding: '1rem',
+        // px: '3rem',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        justifyContent: 'center',
+        // justifyContent: 'center',
     },
     ProjectLink: {
         borderRadius: '.4rem',
@@ -274,6 +270,12 @@ const stylesheet = (theme) => ({
         textDecoration: 'none',
         color: theme.palette.common.white,
     },
+    StackStyle: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        maxWidth: '600px',
+    }
 })
 
 export default AboutPage;

@@ -25,6 +25,7 @@ const SettingsPage = (props) => {
 
     // Theme
     const theme = useTheme();
+	const styles = stylesheet(theme);
 
     // Auth
     const updateAuthData = useAuthUpdate();
@@ -100,32 +101,12 @@ const SettingsPage = (props) => {
 
     return (
         <PageContainer 
-            style={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-            }}
+            style={styles.PageContainer}
         >
             <Stack 
                 spacing={3} 
                 direction="column"
-                sx={{
-                    alignItems: 'center',
-                    width: '18rem',
-                    '& > *': {
-                        width: '100%',
-                        color: theme.palette.mode === 'dark' && theme.palette.primary.light,
-                        fontSize: '1rem',
-                        '& > input': {
-                            fontSize: '1.3rem',
-                        },
-                        '& > a': {
-                            color: 'inherit',
-                            fontSize: 'inherit',
-                            textDecoration: 'none',
-                        }
-                    },
-                }}
+                sx={styles.StackStyle}
             >
 
                 <Badge
@@ -230,5 +211,30 @@ const SettingsPage = (props) => {
         </PageContainer>
     )
 }
+
+const stylesheet = (theme) => ({
+    PageContainer: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+    },
+    StackStyle: {
+        alignItems: 'center',
+        width: '18rem',
+        '& > *': {
+            width: '100%',
+            color: theme.palette.mode === 'dark' && theme.palette.primary.light,
+            fontSize: '1rem',
+            '& > input': {
+                fontSize: '1.3rem',
+            },
+            '& > a': {
+                color: 'inherit',
+                fontSize: 'inherit',
+                textDecoration: 'none',
+            }
+        },
+    },
+})
 
 export default SettingsPage;
