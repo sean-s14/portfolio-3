@@ -1,6 +1,6 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { styled, useTheme } from '@mui/material/styles';
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import {
     useMediaQuery,
@@ -32,7 +32,7 @@ import MuiAppBar from '@mui/material/AppBar';
 import {
     Home,
     QuestionMark,
-    Feed,
+    // Feed,
     Article,
     Devices,
     Menu,
@@ -180,6 +180,7 @@ export default function NavigationDrawer2(props) {
 
     const auth = useAuth();
     const authUpdate = useAuthUpdate();
+    const location = useLocation();
     const vars = useVariables()
     const mobile = useMediaQuery(`(min-width: ${vars.mobile})`)
 
@@ -194,6 +195,8 @@ export default function NavigationDrawer2(props) {
     const handleSubscribeClose = () => setSubForm(false);
     const handleDrawerOpen = () => setOpen(true);
     const handleDrawerClose = () => setOpen(false);
+
+    useEffect( () => { handleDrawerClose() }, [location]);
 
     const routes1 = [
         {
@@ -245,11 +248,11 @@ export default function NavigationDrawer2(props) {
             path: "about",
             icon: <QuestionMark />
         },
-        {
-            name: "Policies",
-            path: "policies",
-            icon: <Feed />
-        },
+        // {
+        //     name: "Policies",
+        //     path: "policies",
+        //     icon: <Feed />
+        // },
         {
             name: "Contact",
             path: "contact",

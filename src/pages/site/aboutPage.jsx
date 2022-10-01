@@ -158,11 +158,17 @@ const AboutPage = (props) => {
                             display: 'flex',
                             flexDirection: 'column',
                             justifyContent: 'space-between',
+                            mr: 1
                         }}
                     >
                         <Typography paragraph>
-                            Hi, I'm Sean. I'm a Developer based in London. 
+                            Hi, I'm Sean. I'm a Developer based in London, England.
                         </Typography>
+                        
+                        <Typography paragraph>
+                            The languages I'm familiar with include Javascript and Python &#40;plus HTML &#38; CSS if you count those&#41;. And the frameworks I'm familiar with include Django Rest &#40;for backend&#41; and React and React Native &#40;for frontend&#41;
+                        </Typography>
+                        
                         <Typography paragraph sx={{mb: 0}}>
                             Down below is a list of projects I've completed grouped by Language/Framework
                         </Typography>
@@ -171,82 +177,83 @@ const AboutPage = (props) => {
                         aria-label={'title'} 
                         alt={'a picture of me'}
                         src={Me}
-                        sx={{width: '10rem', height: 'auto', ml: 3}}
+                        sx={{width: '11.5rem', height: 'auto', maxHeight: '15rem', ml: 0}}
                         variant="rounded"
                     />
                 </Box>
 
 
                 { logos && logos.map( ({title, src, expanded, projects}, index) => (
-                    <Card
-                        key={index}
-                        sx={{minWidth: '95%', maxWidth: '95%'}}
-                        elevation={5}
-                    >
-                        <CardHeader
-                            avatar={
-                                <Avatar
-                                    aria-label={'title'} 
-                                    key={index}
-                                    alt={`${title} logo`}
-                                    src={src}
-                                    sx={{ width: '2.4rem', height: 'auto'}}
-                                    variant="rounded"
-                                />
-                            }
-                            action={
-                                <IconButton
-                                    aria-label="drop-down"
-                                    onClick={() => expandItem(title)}
-                                >
-                                    { expanded
-                                        ? <KeyboardArrowUp />
-                                        : <KeyboardArrowDown />
-                                    }
-                                </IconButton>
-                            }
-                            title={title}
-                            titleTypographyProps={{fontSize: '1.3rem', ml: 2}}
-                        />
-                        
-                        <Collapse in={expanded} timeout="auto" unmountOnExit>
-                            <CardContent>
-                                { projects && projects.map( ({title, link, description, date_created}, index) => (
-                                    <React.Fragment key={index}>
-                                        <Typography 
-                                            variant={"h5"}
-                                        >
-                                            <a 
-                                                href={link} 
-                                                target={"_blank"}
-                                                rel={"noreferrer"}
-                                                className={"project-img-cover"}
-                                                style={styles.ProjectLink}
+                    projects &&
+                        <Card
+                            key={index}
+                            sx={{minWidth: '95%', maxWidth: '95%'}}
+                            elevation={5}
+                        >
+                            <CardHeader
+                                avatar={
+                                    <Avatar
+                                        aria-label={'title'} 
+                                        key={index}
+                                        alt={`${title} logo`}
+                                        src={src}
+                                        sx={{ width: '2.4rem', height: 'auto'}}
+                                        variant="rounded"
+                                    />
+                                }
+                                action={
+                                    <IconButton
+                                        aria-label="drop-down"
+                                        onClick={() => expandItem(title)}
+                                    >
+                                        { expanded
+                                            ? <KeyboardArrowUp />
+                                            : <KeyboardArrowDown />
+                                        }
+                                    </IconButton>
+                                }
+                                title={title}
+                                titleTypographyProps={{fontSize: '1.3rem', ml: 2}}
+                            />
+                            
+                            <Collapse in={expanded} timeout="auto" unmountOnExit>
+                                <CardContent>
+                                    { projects && projects.map( ({title, link, description, date_created}, index) => (
+                                        <React.Fragment key={index}>
+                                            <Typography 
+                                                variant={"h5"}
                                             >
-                                                {title}
-                                                <OpenInNew sx={{ml: 2}}/>
-                                            </a>
-                                        </Typography>
+                                                <a 
+                                                    href={link} 
+                                                    target={"_blank"}
+                                                    rel={"noreferrer"}
+                                                    className={"project-img-cover"}
+                                                    style={styles.ProjectLink}
+                                                >
+                                                    {title}
+                                                    <OpenInNew sx={{ml: 2}}/>
+                                                </a>
+                                            </Typography>
 
-                                        <Typography 
-                                            variant={"caption"}
-                                            sx={{ml: 1, color: theme.palette.text.disabled}}
-                                        >
-                                            {convertDate(date_created)}
-                                        </Typography>
+                                            <Typography 
+                                                variant={"caption"}
+                                                sx={{ml: 1, color: theme.palette.text.disabled}}
+                                            >
+                                                {convertDate(date_created)}
+                                            </Typography>
 
-                                        <Typography 
-                                            paragraph
-                                            sx={{mt: 1}}
-                                        >
-                                            {description}
-                                        </Typography>
-                                        { projects[index+1] && <Divider sx={{my: 2}}/> }
-                                    </React.Fragment>
-                                ))}
-                            </CardContent>
-                        </Collapse>
-                    </Card>
+                                            <Typography 
+                                                paragraph
+                                                sx={{mt: 1}}
+                                            >
+                                                {description}
+                                            </Typography>
+                                            { projects[index+1] && <Divider sx={{my: 2}}/> }
+                                        </React.Fragment>
+                                    ))}
+                                </CardContent>
+                            </Collapse>
+                        </Card>
                 ))}
             </Stack>
         </PageContainer>

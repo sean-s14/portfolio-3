@@ -1,5 +1,5 @@
 
-import logo512 from 'static/images/logo512.png';
+import logo512 from 'static/images/logo-512.png';
 
 const LoadingScreen = (props) => {
 
@@ -14,7 +14,7 @@ const LoadingScreen = (props) => {
         >
             <img 
                 src={logo512} 
-                alt="React Logo" 
+                alt="The letter as a Logo" 
                 style={{
                     maxWidth: '70vw',
                     maxHeight: '70vh',
