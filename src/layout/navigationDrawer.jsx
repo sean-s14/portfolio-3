@@ -164,7 +164,7 @@ export default function NavigationDrawer2(props) {
 
     const [routes1, routes2, routes3] = useRoutes();
     const location = useLocation();
-    const vars = useVariables()
+    const vars = useVariables();
     const mobile = useMediaQuery(`(min-width: ${vars.mobile})`)
 
     const theme = useTheme();

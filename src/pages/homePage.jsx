@@ -1,13 +1,26 @@
 
-import { useTheme } from '@mui/material';
+import { Devices, Article, Send } from '@mui/icons-material';
+import { 
+    useTheme,
+    useMediaQuery,
+    
+    Stack, 
+    Paper, 
+    IconButton, 
+    InputBase, 
+    Divider,
+    Typography,
+    // Box,
+} from '@mui/material';
 import { Link } from 'react-router-dom';
 import { PageContainer } from "layout/pageContainer";
-import { Devices, Article, Send } from '@mui/icons-material';
-import { Stack, Paper, IconButton, InputBase, Divider,   } from '@mui/material';
+import { useVariables } from 'hooks/exports';
 
 const HomePage = () => {
 
     const theme = useTheme();
+    const vars = useVariables();
+    const mobile = useMediaQuery(`(min-width: ${vars.mobile})`)
 
 
     const linkStyle = {
@@ -25,9 +38,54 @@ const HomePage = () => {
     }
 
     return (
-        <PageContainer style={{padding: 5, display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-            <h1 style={{marginBottom: '4rem'}}>Welcome!</h1>
-            <Stack spacing={5}>
+        <PageContainer 
+            style={{
+                padding: 5, 
+                display: 'flex', 
+                flexDirection: 'column', 
+                alignItems: 'center'
+            }}
+        >
+            {/* <h1 style={{marginBottom: '4rem'}}>Welcome!</h1> */}
+
+            <Stack spacing={1} sx={{mt: mobile ? 4 : 0}}>
+                <Typography
+                    variant={"h6"}
+                    sx={{
+                        color: theme.palette.grey[500],
+                        fontWeight: theme.typography.fontWeightLight
+                    }}
+                >
+                    Welcome, my name is
+                </Typography>
+
+                <Typography
+                    variant={mobile ? "h2" : "h3"}
+                    sx={{
+                        fontWeight: theme.typography.fontWeightBold
+                    }}
+                >
+                    Sean Stocker
+                </Typography>
+
+                <Typography
+                    variant={mobile ? "h3" : "h4"}
+                    sx={{color: theme.palette.primary.main}}
+                >
+                    I build websites and mobile apps
+                </Typography>
+            </Stack>
+
+            <Stack 
+                spacing={5} 
+                sx={{
+                    mt: mobile ? 10 : 4,
+                    // width: '100%',
+                    // display: 'flex', 
+                    // flexDirection: 'column', 
+                    // alignItems: 'center'
+                }}
+            >
                 <Paper
                     component="form"
                     elevation={4}
